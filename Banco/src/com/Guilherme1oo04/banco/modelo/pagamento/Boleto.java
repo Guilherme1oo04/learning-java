@@ -2,7 +2,7 @@ package com.Guilherme1oo04.banco.modelo.pagamento;
 
 import com.Guilherme1oo04.banco.modelo.Pessoa;
 
-public class Boleto implements DocumentoPagavel{
+public class Boleto implements DocumentoPagavel, DocumentoEstornavel{
 
     private Pessoa beneficiario;
     private double valor;
@@ -22,6 +22,11 @@ public class Boleto implements DocumentoPagavel{
     @Override
     public boolean estaPago() {
         return this.pago;
+    }
+
+    @Override
+    public void estornarPagamento() {
+        this.pago = false;
     }
 
     @Override

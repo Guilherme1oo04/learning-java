@@ -17,10 +17,13 @@ public class Principal {
         minhaConta.sacar(200, 40);
         minhaConta.creditarRendimentos(0.6);
 
-        DocumentoPagavel boletoLuz = new Boleto(minhaConta.getTitular(), 100);
+        Boleto boletoLuz = new Boleto(minhaConta.getTitular(), 100);
 
         minhaConta.info();
         caixaEletronico.pagar(boletoLuz, minhaConta);
+
+        System.out.println();
+        boletoLuz.recibo();
 
         System.out.println(" ");
         System.out.println(minhaConta.getTitular().getNome() + " pagou a conta: " + boletoLuz.estaPago());
@@ -28,7 +31,7 @@ public class Principal {
 
         System.out.println(" ");
 
-        // caixaEletronico.pagar(boletoLuz, minhaConta);
+        // caixaEletronico.estornarPagamento(boletoLuz, minhaConta);
 
         ContaEspecial suaConta = new ContaEspecial("Pessoa aleatória", "645739", 47, 8584, 1_000);
         suaConta.depositar(7_000);

@@ -1,6 +1,7 @@
 package com.Guilherme1oo04.banco.modelo.atm;
 
 import com.Guilherme1oo04.banco.modelo.Conta;
+import com.Guilherme1oo04.banco.modelo.pagamento.DocumentoEstornavel;
 import com.Guilherme1oo04.banco.modelo.pagamento.DocumentoPagavel;
 
 public class CaixaEletronico {
@@ -16,5 +17,14 @@ public class CaixaEletronico {
 
         conta.sacar(documento.getValorTotal());
         documento.quitarPagamento();
+    }
+
+    public void estornarPagamento(DocumentoEstornavel documento, Conta contaEnviarEstorno){
+        if (!documento.estaPago()){
+            throw new IllegalStateException("Documento não está pago.");
+        }
+
+        contaEnviarEstorno.depositar(documento.getValorTotal());
+        documento.estornarPagamento();
     }
 }
