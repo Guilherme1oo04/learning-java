@@ -9,4 +9,9 @@ public class ContaInvestimento extends Conta{
         double valorRendimentos = this.getSaldo() * percentualJuros / 100;
         this.depositar(valorRendimentos);
     }
+
+    @Override
+    public double getSaldoDisponivel() {
+        return getSaldo();
+    }
 }

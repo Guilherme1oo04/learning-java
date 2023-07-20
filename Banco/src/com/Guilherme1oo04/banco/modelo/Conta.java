@@ -2,7 +2,7 @@ package com.Guilherme1oo04.banco.modelo;
 
 import java.util.Objects;
 
-public class Conta {
+public abstract class Conta {
     private Pessoa titular;
     private int agencia;
     private int numero;
@@ -56,7 +56,9 @@ public class Conta {
         return this.saldo;
     }
 
-    public double getSaldoDisponivel(){
-        return getSaldo();
+    public Pessoa getTitular(){
+        return this.titular;
     }
+
+    public abstract double getSaldoDisponivel();
 }

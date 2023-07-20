@@ -9,7 +9,7 @@ public class Pessoa {
         this.documento = documento;
     }
 
-    String getNome(){
+    public String getNome(){
         return this.nome;
     }
 
