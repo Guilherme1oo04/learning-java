@@ -1,8 +1,10 @@
 package com.Guilherme1oo04.banco.app;
 
+import com.Guilherme1oo04.banco.modelo.TipoPessoa;
 import com.Guilherme1oo04.banco.modelo.atm.CaixaEletronico;
 import com.Guilherme1oo04.banco.modelo.ContaEspecial;
 import com.Guilherme1oo04.banco.modelo.ContaInvestimento;
+import com.Guilherme1oo04.banco.modelo.excecao.SaldoInsuficienteException;
 import com.Guilherme1oo04.banco.modelo.pagamento.Boleto;
 import com.Guilherme1oo04.banco.modelo.pagamento.DocumentoPagavel;
 import com.Guilherme1oo04.banco.modelo.pagamento.Holerite;
@@ -25,24 +27,33 @@ public class Principal {
         System.out.println();
         boletoLuz.recibo();
 
-        System.out.println(" ");
+        System.out.println();
         System.out.println(minhaConta.getTitular().getNome() + " pagou a conta: " + boletoLuz.estaPago());
         System.out.println("Saldo atual: " + caixaEletronico.saldo(minhaConta));
 
-        System.out.println(" ");
+        System.out.println();
 
         // caixaEletronico.estornarPagamento(boletoLuz, minhaConta);
 
         ContaEspecial suaConta = new ContaEspecial("Pessoa aleatória", "645739", 47, 8584, 1_000);
+        suaConta.mudarTipoPessoa(TipoPessoa.JURIDICA);
         suaConta.depositar(7_000);
         suaConta.sacar(5_600, 20);
         suaConta.info();
 
-        System.out.println(" ");
+        System.out.println();
 
         DocumentoPagavel holerite1 = new Holerite(minhaConta, 150, 11);
         caixaEletronico.pagar(holerite1, suaConta);
         System.out.println(suaConta.getTitular().getNome() + " pagou o holerite: " + holerite1.estaPago());
         System.out.println("Saldo atual: " + caixaEletronico.saldo(suaConta));
+
+        System.out.println();
+
+        try {
+            suaConta.sacar(3_000);
+        } catch (SaldoInsuficienteException e){
+            System.out.println("Erro ao executar operação na conta: " + e.getMessage());
+        }
     }
 }
