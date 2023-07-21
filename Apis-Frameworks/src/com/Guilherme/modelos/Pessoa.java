@@ -1,5 +1,7 @@
 package com.Guilherme.modelos;
 
+import java.util.Objects;
+
 public class Pessoa {
     private String nome;
     private String funcao;
@@ -22,6 +24,11 @@ public class Pessoa {
         if (obj == null || this.getClass() != obj.getClass()) return false;
 
         return this.nome.equals(((Pessoa) obj).nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.nome);
     }
 
     public String getNome() {
