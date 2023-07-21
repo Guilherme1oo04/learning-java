@@ -7,7 +7,7 @@ import com.Guilherme1oo04.banco.modelo.pagamento.DocumentoPagavel;
 public class CaixaEletronico {
 
     public double saldo(Conta conta){
-        return conta.getSaldo();
+        return conta.getSaldo().doubleValue();
     }
 
     public void pagar(DocumentoPagavel documento, Conta conta){

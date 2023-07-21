@@ -3,6 +3,7 @@ package com.Guilherme1oo04.banco.modelo;
 import com.Guilherme1oo04.banco.modelo.excecao.NegativeNumberException;
 import com.Guilherme1oo04.banco.modelo.excecao.SaldoInsuficienteException;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public abstract class Conta {
     private Pessoa titular;
     private int agencia;
     private int numero;
-    private double saldo;
+    private BigDecimal saldo = new BigDecimal("0");
     private LocalDateTime ultimaAtualizacao;
 
     public Conta(String nome, String documento, int agencia, int numero){
@@ -37,7 +38,7 @@ public abstract class Conta {
         if (valor <= 0){
             throw new NegativeNumberException("O valor deve ser maior que zero.");
         }
-        this.saldo += valor;
+        this.saldo = this.saldo.add(new BigDecimal(String.valueOf(valor)));
     }
 
     public void sacar(double valor){
@@ -45,11 +46,11 @@ public abstract class Conta {
             throw new NegativeNumberException("O valor deve ser maior que zero.");
         }
 
-        if (getSaldoDisponivel() - valor < 0){
+        if (getSaldoDisponivel().doubleValue() - valor < 0){
             throw new SaldoInsuficienteException("Saldo insuficiente.");
         }
 
-        this.saldo -= valor;
+        this.saldo = this.saldo.subtract(new BigDecimal(String.valueOf(valor)));
     }
 
     public void sacar(double valor, double taxaSaque){
@@ -66,7 +67,7 @@ public abstract class Conta {
         this.ultimaAtualizacao = LocalDateTime.now();
     }
 
-    public double getSaldo() {
+    public BigDecimal getSaldo() {
         return this.saldo;
     }
 
@@ -74,5 +75,5 @@ public abstract class Conta {
         return this.titular;
     }
 
-    public abstract double getSaldoDisponivel();
+    public abstract BigDecimal getSaldoDisponivel();
 }

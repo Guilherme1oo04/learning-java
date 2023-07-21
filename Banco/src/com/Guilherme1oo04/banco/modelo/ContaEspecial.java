@@ -1,5 +1,7 @@
 package com.Guilherme1oo04.banco.modelo;
 
+import java.math.BigDecimal;
+
 public class ContaEspecial extends Conta{
     private double valorLimite;
 
@@ -9,7 +11,7 @@ public class ContaEspecial extends Conta{
     }
 
     @Override
-    public double getSaldoDisponivel() {
-        return getSaldo() + this.valorLimite;
+    public BigDecimal getSaldoDisponivel() {
+        return getSaldo().add(new BigDecimal(String.valueOf(this.valorLimite)));
     }
 }
